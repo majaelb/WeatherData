@@ -33,13 +33,23 @@ namespace WeatherData
                     
                     foreach (Group g in m.Groups)
                     {
-                        if(g.Name.Equals(1) && g.Value.Equals(2016))
+                        //if(g.Name.Equals(1) && g.Value.Equals(2016))
                         Console.WriteLine(g.Name + " : " + g.Value);
                         
                     }
                 }
             }
-        }
+
+            //Match match = regex.Match(time);
+            //Console.Write(time + ": ");
+            //if (match.Success)
+            //{
+            //    int hour = int.Parse(match.Groups["hour"].Value);
+            //    if (hour < 24) // IsValidTime(match)
+            //    {
+            //        Console.WriteLine("Helt korrekt datum");
+            //    }
+            //}
         public static List<string> GetMonth(string expression, string inOrOut)
         {
             string[] weatherData = File.ReadAllLines("../../../TempData/tempdata5-med fel.txt");
