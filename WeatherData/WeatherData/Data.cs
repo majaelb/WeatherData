@@ -27,15 +27,15 @@ namespace WeatherData
             List<string> validData = new();
             foreach (Match m in Regex.Matches(weatherData, pattern).Cast<Match>())
             {
-                
+
                 if (m.Groups.Count > 0)
                 {
-                    
+
                     foreach (Group g in m.Groups)
                     {
                         //if(g.Name.Equals(1) && g.Value.Equals(2016))
                         Console.WriteLine(g.Name + " : " + g.Value);
-                        
+
                     }
                 }
             }
@@ -50,6 +50,7 @@ namespace WeatherData
             //        Console.WriteLine("Helt korrekt datum");
             //    }
             //}
+        }
         public static List<string> GetMonth(string expression, string inOrOut)
         {
             string[] weatherData = File.ReadAllLines("../../../TempData/tempdata5-med fel.txt");
@@ -68,3 +69,4 @@ namespace WeatherData
         }
     }
 }
+
