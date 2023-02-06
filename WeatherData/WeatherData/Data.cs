@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,42 +15,56 @@ namespace WeatherData
         public int Day { get; set; }
         //time-props?
         public string InOrOut { get; set; }
-        public double Temp { get; set; }
+        public string Temp { get; set; }
         public int Humidity { get; set; }
 
+        public static List<Data> WeatherData { get; set; } = new List<Data>();
 
 
         public static void ReadFile()
         {
-            string weatherData = File.ReadAllText("../../../TempData/tempdata5-med fel.txt");
+            string[] weatherData = File.ReadAllLines("../../../TempData/tempdata5-med fel.txt");
             //string text = "2016-06-01";
-            string pattern = "(\\d{4})-(?<month>\\d{2})-(\\d{2}).+,(?<inOrOut>\\w{3,4}),(?<temp>\\d{1,2}\\.\\d),(?<hum>\\d{2})";
-            List<string> validData = new();
-            foreach (Match m in Regex.Matches(weatherData, pattern).Cast<Match>())
+            //string pattern = "(\\d{4})-(?<month>\\d{2})-(\\d{2}).+,(?<inOrOut>\\w{3,4}),(?<temp>\\d{1,2}\\.\\d),(?<hum>\\d{2})";
+            //List<string> validData = new();
+            //foreach (Match m in Regex.Matches(weatherData, pattern).Cast<Match>())
+            //{
+            //    if (m.Groups.Count > 0)
+            //    {
+            //        foreach (Group g in m.Groups)
+            //        {
+            //            //if(g.Name.Equals(1) && g.Value.Equals(2016))
+            //            Console.WriteLine(g.Name + " : " + g.Value);
+
+            //        }
+            //    }
+            //}
+            //WeatherData.RemoveRange(0, WeatherData.Count());
+            Regex regex = new("(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2}).+,(?<inOrOut>\\w{3,4}),(?<temp>\\d{1,2}\\.\\d),(?<hum>\\d{2})");
+            foreach (var line in weatherData)
             {
-
-                if (m.Groups.Count > 0)
+                Match match = regex.Match(line);
+                if (match.Success)
                 {
-
-                    foreach (Group g in m.Groups)
+                    if (int.Parse(match.Groups["year"].Value) == 2016 && int.Parse(match.Groups["month"].Value) > 05)
                     {
-                        //if(g.Name.Equals(1) && g.Value.Equals(2016))
-                        Console.WriteLine(g.Name + " : " + g.Value);
-
+                        WeatherData.Add(new Data()
+                        {
+                            Year = int.Parse(match.Groups["year"].Value),
+                            Month = int.Parse(match.Groups["month"].Value),
+                            Day = int.Parse(match.Groups["day"].Value),
+                            InOrOut = match.Groups["inOrOut"].Value,
+                            Temp = match.Groups["temp"].Value,
+                            Humidity = int.Parse(match.Groups["hum"].Value)
+                        });
                     }
                 }
             }
-
-            //Match match = regex.Match(time);
-            //Console.Write(time + ": ");
-            //if (match.Success)
-            //{
-            //    int hour = int.Parse(match.Groups["hour"].Value);
-            //    if (hour < 24) // IsValidTime(match)
-            //    {
-            //        Console.WriteLine("Helt korrekt datum");
-            //    }
-            //}
+            foreach (var w in WeatherData)
+            {
+                Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
+                Console.ReadKey();
+            }
         }
         public static List<string> GetMonth(string expression, string inOrOut)
         {
