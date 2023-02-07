@@ -1,4 +1,6 @@
-﻿namespace WeatherData
+﻿using WeatherData.Logic;
+
+namespace WeatherData
 {
     internal class Program
     {
@@ -6,6 +8,7 @@
         {
             //ReadTempFile.GetYearData();
             Data.CreateWeatherDataList();
+            InputManager.GetAvg();
         }
     }
 }

@@ -10,9 +10,9 @@ namespace WeatherData
 {
     internal class Data
     {
-        public int Year { get; set; }
-        public int Month { get; set; }
-        public int Day { get; set; }
+        public string Year { get; set; }
+        public string Month { get; set; }
+        public string Day { get; set; }
         public int Hour { get; set; }
         public int Minute { get; set; }
         public int Second { get; set; }
@@ -50,9 +50,9 @@ namespace WeatherData
                         {
                             WeatherDataInside.Add(new Data()
                             {
-                                Year = year,
-                                Month = month,
-                                Day = day,
+                                Year = year.ToString(),
+                                Month = month < 10 ? "0" + month.ToString() : month.ToString(),                           
+                                Day = day < 10 ? "0" + day.ToString() : day.ToString(),
                                 Hour = hour,
                                 Minute = min,
                                 Second = sec,
@@ -65,9 +65,9 @@ namespace WeatherData
                         {
                             WeatherDataOutside.Add(new Data()
                             {
-                                Year = year,
-                                Month = month,
-                                Day = day,
+                                Year = year.ToString(),
+                                Month = month.ToString(),
+                                Day = day.ToString(),
                                 Hour = hour,
                                 Minute = min,
                                 Second = sec,

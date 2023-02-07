@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WeatherData.Logic
 {
     internal class Helper
     {
+        
         internal static void ActiveChoice(string choice) //Skriver ut var på sidan man befinner sig efter ett knappval i en meny
         {
             Console.WriteLine("Aktivt val:");
