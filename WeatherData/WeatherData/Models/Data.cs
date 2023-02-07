@@ -24,9 +24,9 @@ namespace WeatherData
         public static List<Data> WeatherDataOutside { get; set; } = new List<Data>();
 
 
-        public static void ReadFile()
+        public static void CreateWeatherDataList()
         {
-            string[] weatherData = File.ReadAllLines("../../../TempData/tempdata5-med fel.txt");
+            string[] weatherData = File.ReadAllLines("../../../Files/tempdata5-med fel.txt");
             //WeatherData.RemoveRange(0, WeatherData.Count());
             Regex regex = new("(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2}) (?<hour>[0-2][0-9]):(?<min>[0-5][0-9]):(?<sec>[0-5][0-9]),(?<inOrOut>\\w{3,4}),(?<temp>\\-?\\d{1,2}\\.\\d),(?<hum>\\d{2})");
             foreach (var line in weatherData)
@@ -54,14 +54,14 @@ namespace WeatherData
                                 Month = month,
                                 Day = day,
                                 Hour = hour,
-                                Minute= min,
-                                Second= sec,
+                                Minute = min,
+                                Second = sec,
                                 InOrOut = inOrOut,
                                 Temp = temp,
                                 Humidity = hum
                             });
                         }
-                        else if(inOrOut == "Ute" || inOrOut == "ute" && temp > -35 && temp < 40 && hum > 10 && hum <= 100)
+                        else if (inOrOut == "Ute" || inOrOut == "ute" && temp > -35 && temp < 40 && hum > 10 && hum <= 100)
                         {
                             WeatherDataOutside.Add(new Data()
                             {
@@ -89,11 +89,11 @@ namespace WeatherData
             //    Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.Hour + " " + w.Minute + " " + w.Second + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
             //    Console.ReadKey();
             //}
-            
+
         }
         public static List<string> GetMonth(string expression, string inOrOut)
         {
-            string[] weatherData = File.ReadAllLines("../../../TempData/tempdata5-med fel.txt");
+            string[] weatherData = File.ReadAllLines("../../../Files/tempdata5-med fel.txt");
             List<string> month = new();
             Regex regex = new(expression); //"^2016-06.+"
             MatchCollection matches;
@@ -109,4 +109,3 @@ namespace WeatherData
         }
     }
 }
-

@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             //ReadTempFile.GetYearData();
-            Data.ReadFile();
+            Data.CreateWeatherDataList();
         }
     }
 }
