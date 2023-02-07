@@ -66,8 +66,8 @@ namespace WeatherData
                             WeatherDataOutside.Add(new Data()
                             {
                                 Year = year.ToString(),
-                                Month = month.ToString(),
-                                Day = day.ToString(),
+                                Month = month < 10 ? "0" + month.ToString() : month.ToString(),
+                                Day = day < 10 ? "0" + day.ToString() : day.ToString(),
                                 Hour = hour,
                                 Minute = min,
                                 Second = sec,
@@ -79,17 +79,6 @@ namespace WeatherData
                     }
                 }
             }
-            //foreach (var w in WeatherDataInside)
-            //{
-            //    Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.Hour + " " + w.Minute + " " + w.Second + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
-
-            //}
-            //foreach (var w in WeatherDataOutside)
-            //{
-            //    Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.Hour + " " + w.Minute + " " + w.Second + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
-            //    Console.ReadKey();
-            //}
-
         }
         public static List<string> GetMonth(string expression, string inOrOut)
         {

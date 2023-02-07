@@ -35,13 +35,13 @@ namespace WeatherData.Logic
             }
         }
 
-        internal static string GetDate(string instruction, string pattern)
+        internal static string GetDate(string instruction, string pattern, string inOrOut)
         {
             while (true)
             {
                 string date = Validator.RegexCheck("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$");
                 if (date == null) return null; 
-                foreach (var d in Data.WeatherDataInside)
+                foreach (var d in inOrOut.ToLower() == "ute" ? Data.WeatherDataOutside : Data.WeatherDataInside)
                 {
                     if (d.Year+d.Month+d.Day == date)
                     {

@@ -9,48 +9,49 @@ namespace WeatherData.Logic
 {
     internal class InputManager
     {
-        internal static void GetAvg()
+        internal static List<List<double>> GetAvg()
         {
+            List<double> chosenTempData = new();
+            List<double> chosenHumData = new();
+            List<List<double>> avgLists = new();
             while (true)
             {
-                string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute?: ", "^Inne|inne|Ute|ute$");
-                if (inOrOut == null) return;
-                string date = Validator.GetDate("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$");
-                if (date == null) return;
-                List<double> chosenData = new();
-                if (inOrOut == "Inne" || inOrOut == "inne")
-                {
-                    foreach (var d in Data.WeatherDataInside)
-                    {
-                        if (d.Year + d.Month + d.Day == date)
-                        {
-                            chosenData.Add(d.Temp);
-                            chosenData.Add(d.Humidity);
-                        }
+                string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute? ", "^Inne|inne|Ute|ute$");
+                if (inOrOut == null) return null;
+                string date = Validator.GetDate("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$", inOrOut);
+                if (date == null) return null;
 
+                foreach (var d in inOrOut.ToLower() == "ute" ? Data.WeatherDataOutside : Data.WeatherDataInside)
+                {
+                    if (d.Year + d.Month + d.Day == date)
+                    {
+                        chosenTempData.Add(d.Temp);
+                        chosenHumData.Add(d.Humidity);
                     }
                 }
-                else if (inOrOut == "Ute" || inOrOut == "ute")
-                {
+                avgLists.Add(chosenTempData);
+                avgLists.Add(chosenHumData);
+                return avgLists;
 
-                    foreach (var d in Data.WeatherDataOutside)
-                    {
-                        if (d.Year + d.Month + d.Day == date)
-                        {
-                            chosenData.Add(d.Temp);
-                            chosenData.Add(d.Humidity);
-                        }
+                //double totalTemp = 0;
+                //double totalHum = 0;
 
-                    }
-                }
-                foreach (var d in chosenData)
-                {
-                    Console.WriteLine(d);
-                }
+                //foreach (var t in chosenTempData)
+                //{
+                //    totalTemp += t;
+                //}
+                //foreach (var h in chosenHumData)
+                //{
+                //    totalHum += h;
+                //}
+
+                //double avgTemp = totalTemp / chosenTempData.Count;
+                //double avgHum = totalHum / chosenHumData.Count;
+
+                //Console.WriteLine($"Medeltemperatur för {date} är {Math.Round(avgTemp,2)}.");
+                //Console.WriteLine($"Medelfuktigheten för {date} är {Math.Round(avgHum,2)}.");
             }
 
-
-            //chosenData.Average();
         }
     }
 }
