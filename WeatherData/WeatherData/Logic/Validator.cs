@@ -35,6 +35,27 @@ namespace WeatherData.Logic
             }
         }
 
+        internal static string GetDate(string instruction, string pattern)
+        {
+            while (true)
+            {
+                string date = Validator.RegexCheck("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$");
+                if (date == null) return null; 
+                foreach (var d in Data.WeatherDataInside)
+                {
+                    if (d.Year+d.Month+d.Day == date)
+                    {
+                        return date;
+                    }
+                }
+                WrongInput("Datumet finns tyvärr inte i statistiken");
+                if (Validator.ExitChoice())
+                {
+                    return null;
+                }
+            }
+        }
+
         internal static string? GetString(string instruction)
         {
             while (true)

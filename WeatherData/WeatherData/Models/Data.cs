@@ -18,7 +18,7 @@ namespace WeatherData
         public int Second { get; set; }
         public string InOrOut { get; set; }
         public double Temp { get; set; }
-        public int Humidity { get; set; }
+        public double Humidity { get; set; }
 
         public static List<Data> WeatherDataInside { get; set; } = new List<Data>();
         public static List<Data> WeatherDataOutside { get; set; } = new List<Data>();
@@ -42,7 +42,7 @@ namespace WeatherData
                     int sec = int.Parse(match.Groups["sec"].Value);
                     string inOrOut = match.Groups["inOrOut"].Value;
                     double temp = double.Parse(match.Groups["temp"].Value, System.Globalization.CultureInfo.InvariantCulture);
-                    int hum = int.Parse(match.Groups["hum"].Value);
+                    double hum = double.Parse(match.Groups["hum"].Value);
 
                     if (year == 2016 && month > 05 && month <= 12 && day > 0 && day <= 31 && hour < 24)
                     {
