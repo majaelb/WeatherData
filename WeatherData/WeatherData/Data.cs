@@ -15,7 +15,7 @@ namespace WeatherData
         public int Day { get; set; }
         //time-props?
         public string InOrOut { get; set; }
-        public string Temp { get; set; }
+        public double Temp { get; set; }
         public int Humidity { get; set; }
 
         public static List<Data> WeatherData { get; set; } = new List<Data>();
@@ -46,16 +46,23 @@ namespace WeatherData
                 Match match = regex.Match(line);
                 if (match.Success)
                 {
-                    if (int.Parse(match.Groups["year"].Value) == 2016 && int.Parse(match.Groups["month"].Value) > 05)
+                    int year = int.Parse(match.Groups["year"].Value);
+                    int month = int.Parse(match.Groups["month"].Value);
+                    int day = int.Parse(match.Groups["day"].Value);
+                    string inOrOut = match.Groups["inOrOut"].Value;
+                    double temp = double.Parse(match.Groups["temp"].Value, System.Globalization.CultureInfo.InvariantCulture);
+                    int hum = int.Parse(match.Groups["hum"].Value);
+
+                    if (year == 2016 && month > 05)
                     {
                         WeatherData.Add(new Data()
                         {
-                            Year = int.Parse(match.Groups["year"].Value),
-                            Month = int.Parse(match.Groups["month"].Value),
-                            Day = int.Parse(match.Groups["day"].Value),
-                            InOrOut = match.Groups["inOrOut"].Value,
-                            Temp = match.Groups["temp"].Value,
-                            Humidity = int.Parse(match.Groups["hum"].Value)
+                            Year = year,
+                            Month = month,
+                            Day = day,
+                            InOrOut = inOrOut,
+                            Temp = temp,
+                            Humidity = hum
                         });
                     }
                 }
