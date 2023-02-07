@@ -79,16 +79,16 @@ namespace WeatherData
                     }
                 }
             }
-            foreach (var w in WeatherDataInside)
-            {
-                Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.Hour + " " + w.Minute + " " + w.Second + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
+            //foreach (var w in WeatherDataInside)
+            //{
+            //    Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.Hour + " " + w.Minute + " " + w.Second + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
 
-            }
-            foreach (var w in WeatherDataOutside)
-            {
-                Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.Hour + " " + w.Minute + " " + w.Second + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
-                Console.ReadKey();
-            }
+            //}
+            //foreach (var w in WeatherDataOutside)
+            //{
+            //    Console.WriteLine(w.Year + " " + w.Month + " " + w.Day + " " + w.Hour + " " + w.Minute + " " + w.Second + " " + w.InOrOut + " " + w.Temp + " " + w.Humidity);
+            //    Console.ReadKey();
+            //}
             
         }
         public static List<string> GetMonth(string expression, string inOrOut)
