@@ -9,24 +9,18 @@ namespace WeatherData.Logic
 {
     internal class Helper
     {
-        internal static void CountAvg(List<List<double>> avgLists)
+        internal static double CountAvg(List<double> avgList)
         {
-            double totalTemp = 0;
-            double totalHum = 0;
+            double total = 0;
 
-            foreach (var t in avgLists[0])
+            foreach (var t in avgList)
             {
-                totalTemp += t;
-            }
-            foreach (var h in avgLists[1])
-            {
-                totalHum += h;
+                total += t;
             }
 
-            double avgTemp = totalTemp / avgLists[0].Count;
-            double avgHum = totalHum / avgLists[1].Count;
-            
-            return
+            double avg = total / avgList.Count;
+
+            return avg;
         }
         
         internal static void ActiveChoice(string choice) //Skriver ut var på sidan man befinner sig efter ett knappval i en meny
