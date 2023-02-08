@@ -10,7 +10,7 @@ namespace WeatherData
 {
     internal class Data
     {
-     
+
         public string Year { get; set; }
         public string Month { get; set; }
         public string Day { get; set; }

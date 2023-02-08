@@ -32,7 +32,6 @@ namespace WeatherData.Logic
 
         internal static void GetAvgTest(List<Data> weatherList)
         {
-            //TODO: För varje dag (där datumet är samma men tiden olika?) så ska medeltemperaturen räknas ut. Alla dagars medeltemp ska läggas i en lista          
             List<string> avgTemps = new();
             List<string> avgHums = new();
             string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute? ", "^Inne|inne|Ute|ute$");
