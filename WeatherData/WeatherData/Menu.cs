@@ -9,6 +9,8 @@ namespace WeatherData
 {
     internal class Menu
     {
+        private static List<Data> weatherList = Data.CreateOneWeatherDataList();
+
         public static void Run()
         {
             bool runProgram = true;
@@ -24,7 +26,7 @@ namespace WeatherData
                     case ConsoleKey.NumPad1:
                         Console.Clear();
                         Helper.ActiveChoice("Medeltemperatur");
-                        
+                        InputManager.GetAvg(weatherList);
                         Console.ReadKey();
                         Console.Clear();
                         break;
