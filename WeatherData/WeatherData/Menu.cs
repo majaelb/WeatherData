@@ -26,7 +26,7 @@ namespace WeatherData
                     case ConsoleKey.NumPad1:
                         Console.Clear();
                         Helper.ActiveChoice("Medeltemperatur");
-                        InputManager.GetAvgTest(weatherList, "Inne");
+                        InputManager.GetAvg(weatherList);
                         Console.ReadKey();
                         Console.Clear();
                         break;

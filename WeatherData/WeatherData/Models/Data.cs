@@ -10,6 +10,7 @@ namespace WeatherData
 {
     internal class Data
     {
+     
         public string Year { get; set; }
         public string Month { get; set; }
         public string Day { get; set; }
@@ -37,25 +38,26 @@ namespace WeatherData
                     int hour = int.Parse(match.Groups["hour"].Value);
                     int min = int.Parse(match.Groups["min"].Value);
                     int sec = int.Parse(match.Groups["sec"].Value);
-                    string inOrOut = match.Groups["inOrOut"].Value;
+                    string inOrOut = match.Groups["inOrOut"].Value.ToLower();
                     double temp = double.Parse(match.Groups["temp"].Value, System.Globalization.CultureInfo.InvariantCulture);
                     int hum = int.Parse(match.Groups["hum"].Value);
 
-                    if (year == 2016 && month > 05 && month <= 12 && day > 0 && day <= 31 && hour < 24 && (inOrOut == "Inne" || inOrOut == "inne" && temp > 16 && temp < 30 && hum > 10 && hum <= 100) || (inOrOut == "Ute" || inOrOut == "ute" && temp > -35 && temp < 40 && hum > 10 && hum <= 100))
-                    {
-                        WeatherData.Add(new Data()
+                    if (year == 2016 && month > 05 && month <= 12 && day > 0 && day <= 31 && hour < 24)
+                        if ((inOrOut == "inne" && temp > 16 && temp < 30 && hum > 10 && hum <= 100) || (inOrOut == "ute" && temp > -35 && temp < 40 && hum > 10 && hum <= 100))
                         {
-                            Year = year.ToString(),
-                            Month = month < 10 ? "0" + month.ToString() : month.ToString(),
-                            Day = day < 10 ? "0" + day.ToString() : day.ToString(),
-                            Hour = hour,
-                            Minute = min,
-                            Second = sec,
-                            InOrOut = inOrOut,
-                            Temp = temp,
-                            Humidity = hum
-                        });
-                    }
+                            WeatherData.Add(new Data()
+                            {
+                                Year = year.ToString(),
+                                Month = month < 10 ? "0" + month.ToString() : month.ToString(),
+                                Day = day < 10 ? "0" + day.ToString() : day.ToString(),
+                                Hour = hour,
+                                Minute = min,
+                                Second = sec,
+                                InOrOut = inOrOut,
+                                Temp = temp,
+                                Humidity = hum
+                            });
+                        }
                 }
             }
             return WeatherData;

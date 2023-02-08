@@ -6,8 +6,9 @@ namespace WeatherData
     {
         static void Main(string[] args)
         {
-  
-            Menu.Run();
+            List<Data> weatherlist = Data.CreateOneWeatherDataList();
+            InputManager.GetAvgTest(weatherlist);
+            //Menu.Run();
             
         }
     }
