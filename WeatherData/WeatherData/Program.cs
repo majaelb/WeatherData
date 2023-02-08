@@ -6,10 +6,9 @@ namespace WeatherData
     {
         static void Main(string[] args)
         {
-            //ReadTempFile.GetYearData();
-            //Data.CreateOneWeatherDataList();
+  
             Menu.Run();
-            //InputManager.GetAvg();
+            
         }
     }
 }

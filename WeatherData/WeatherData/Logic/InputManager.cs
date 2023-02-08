@@ -15,18 +15,42 @@ namespace WeatherData.Logic
             {
                 string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute? ", "^Inne|inne|Ute|ute$");
                 if (inOrOut == null) return;
-                string date = Validator.GetDate("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$", inOrOut);
-                if (date == null) return;
+                string date = Validator.GetDate("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$");
 
                 List<Data> correctDateandPlace = weatherList
-                    .Where(d => (d.Year + d.Month + d.Day)
-                    .Equals(date) && d.InOrOut.ToLower() == inOrOut.ToLower())
-                    .ToList();
+                                                .Where(d => (d.Year + d.Month + d.Day)
+                                                .Equals(date) && d.InOrOut.ToLower() == inOrOut.ToLower())
+                                                .ToList();
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
                 double avgHum = correctDateandPlace.Average(t => t.Humidity);
 
                 Console.WriteLine($"Medeltemperatur för {date} är {Math.Round(avgTemp, 2)}.");
                 Console.WriteLine($"Medelfuktigheten för {date} är {Math.Round(avgHum, 2)}.");
+            }
+        }
+        internal static void SortPerMonth(List<Data> weatherList)
+        {
+            //TODO:
+            while (true)
+            {
+                string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute? ", "^Inne|inne|Ute|ute$");
+                if (inOrOut == null) return;
+                string yearMonth = Validator.GetDate("Ange år och månad som du vill se data för (yyMM)? ", "^\\d{4}$");
+                if (yearMonth == null) return;
+
+                foreach(var d in Data.WeatherData.Where(d=> (d.Year + d.Month) == yearMonth))
+                {
+
+                }
+                //List<Data> correctDateandPlace = weatherList
+                //                                .Where(d => (d.Year + d.Month + d.Day)
+                //                                .Equals(date) && d.InOrOut.ToLower() == inOrOut.ToLower())
+                //                                .ToList();
+                //double avgTemp = correctDateandPlace.Average(t => t.Temp);
+                //double avgHum = correctDateandPlace.Average(t => t.Humidity);
+
+                //Console.WriteLine($"Medeltemperatur för {yearMonth} är {Math.Round(avgTemp, 2)}.");
+                //Console.WriteLine($"Medelfuktigheten för {yearMonth} är {Math.Round(avgHum, 2)}.");
             }
         }
     }

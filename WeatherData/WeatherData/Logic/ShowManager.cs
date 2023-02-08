@@ -8,5 +8,6 @@ namespace WeatherData.Logic
 {
     internal class ShowManager
     {
+       
     }
 }

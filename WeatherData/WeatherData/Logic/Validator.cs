@@ -36,11 +36,11 @@ namespace WeatherData.Logic
         }
 
         
-        internal static string GetDate(string instruction, string pattern, string inOrOut)
+        internal static string GetDate(string instruction, string pattern)
         {
             while (true)
             {
-                string date = Validator.RegexCheck("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$");
+                string date = Validator.RegexCheck(instruction,pattern);
                 if (date == null) return null;
                 foreach (var d in Data.WeatherData)
                 {
@@ -50,6 +50,26 @@ namespace WeatherData.Logic
                     }
                 }
                 WrongInput("Datumet finns tyvärr inte i statistiken");
+                if (Validator.ExitChoice())
+                {
+                    return null;
+                }
+            }
+        }
+        internal static string GetMonth(string instruction, string pattern)
+        {
+            while (true)
+            {
+                string yearMonth = Validator.RegexCheck(instruction, pattern);
+                if (yearMonth == null) return null;
+                foreach (var d in Data.WeatherData)
+                {
+                    if (d.Year + d.Month == yearMonth)
+                    {
+                        return yearMonth;
+                    }
+                }
+                WrongInput("Månaden finns tyvärr inte i statistiken");
                 if (Validator.ExitChoice())
                 {
                     return null;
