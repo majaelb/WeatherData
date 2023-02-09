@@ -28,7 +28,6 @@ namespace WeatherData
                     case ConsoleKey.NumPad1:
                         Console.Clear();
                         Helper.ActiveChoice("Medeltemperatur");
-                        weatherManager.Run();
                         Console.ReadKey();
                         Console.Clear();
                         break;
@@ -36,6 +35,7 @@ namespace WeatherData
                     case ConsoleKey.NumPad2:
                         Console.Clear();
                         Helper.ActiveChoice("Sortering");
+                        weatherManager.Run();
                         Console.ReadKey();
                         Console.Clear();
                         break;
