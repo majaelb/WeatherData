@@ -11,27 +11,23 @@ namespace WeatherData.Logic
     {
         public static string GetPlace()
         {
-            while (true)
+            int lower = (int)Enums.PlaceOption.Inne;
+            int upper = (int)Enums.PlaceOption.Ute;
+
+            int inOrOut = Validator.GetIntInRange("Vill du se data för [1] = inne eller [2] = ute :", lower, upper);
+            if (inOrOut == -1) return null;
+            
+            string chosenPlace;
+            if (inOrOut == lower)
             {
-
-                int inOrOut = Validator.GetInt("Vill du se data för [1] = inne eller [2] = ute :");
-                if (inOrOut == -1) return null;
-                string chosenPlace;
-
-                switch (inOrOut)
-                {
-                    case (int)Enums.PlaceOption.Inne:
-                        chosenPlace = "inne";
-                        break;
-                    case (int)Enums.PlaceOption.Ute:
-                        chosenPlace = "ute";
-                        break;
-                    default:
-                        Console.WriteLine("Ogiltigt val, försök igen.");
-                        continue;
-                }
-            return chosenPlace;
+                return "inne";
             }
+            else if (inOrOut == upper)
+            {
+                return "ute";
+            }             
+            return null;
+
         }
         internal static void GetAvg(List<Data> weatherList)
         {
@@ -54,6 +50,6 @@ namespace WeatherData.Logic
             }
         }
 
-        
+
     }
 }

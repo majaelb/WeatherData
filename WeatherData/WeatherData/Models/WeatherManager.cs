@@ -12,20 +12,19 @@ namespace WeatherData.Models
     {
         private List<Data> weatherList = Data.CreateOneWeatherDataList();
         public void Run()
-        {
-            TakeInput();
-            GetAvg();
+        {          
             Print();
         }
         public string TakeInput()
         {
             string chosenPlace = InputManager.GetPlace();
+            if (chosenPlace == null) return null;
             return chosenPlace;
         }
         public Dictionary<string, double> GetAvg()
         {
             string chosenPlace = TakeInput();
-            //if (inOrOut == null) return;
+            if (chosenPlace == null) return null;
             List<Data> correctDateandPlace = new();
             Dictionary<string, double> dateAndAvg = new();
             var groupByDay = weatherList
