@@ -14,7 +14,8 @@ namespace WeatherData
 
         public static void Run()
         {
-            WeatherManager weatherManager = new WeatherManager();
+            SortedWeather weatherManager = new SortedWeather();
+            ChosenDateWeather chosenDate = new ChosenDateWeather();
             bool runProgram = true;
             while (runProgram)
             {
@@ -27,6 +28,7 @@ namespace WeatherData
                     case ConsoleKey.NumPad1:
                         Console.Clear();
                         Helper.ActiveChoice("Medeltemperatur");
+                        chosenDate.Run();
                         Console.ReadKey();
                         Console.Clear();
                         break;

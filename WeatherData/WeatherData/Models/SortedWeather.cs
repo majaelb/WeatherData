@@ -8,7 +8,7 @@ using WeatherData.Logic;
 
 namespace WeatherData.Models
 {
-    internal class WeatherManager : IMeasurable
+    internal class SortedWeather : IMeasurable
     {
         private List<Data> weatherList = Data.CreateOneWeatherDataList();
 
@@ -16,7 +16,7 @@ namespace WeatherData.Models
         private string chosenCategory;
         private Dictionary<string, double> dateAndAvg;
        
-        public WeatherManager()
+        public SortedWeather()
         {
         }
 
@@ -24,13 +24,10 @@ namespace WeatherData.Models
         {
             chosenPlace = InputManager.GetPlace();
             chosenCategory = InputManager.ChooseCategory();
-            dateAndAvg = GetAvg(chosenPlace, chosenCategory);         
-            //TakeInput();
-            //GetAvg(chosenPlace);
-            Print(dateAndAvg);
+            dateAndAvg = GetAvg();
+            Print();
         }
-      
-        public Dictionary<string, double> GetAvg(string chosenPlace, string chosenCategory)
+        public Dictionary<string, double> GetAvg()
         {
             //string chosenPlace = TakeInput();
             if (chosenPlace == null) return null;
@@ -57,11 +54,11 @@ namespace WeatherData.Models
             return dateAndAvg;
         }
 
-        public void Print(Dictionary<string, double> dateAndAvg)
+        public void Print()
         {
-            foreach (var item in dateAndAvg.OrderByDescending(t => t.Value))
+            foreach (var item in chosenCategory == "temp" ? (dateAndAvg.OrderByDescending(t => t.Value)) : dateAndAvg.OrderBy(t => t.Value))
             {
-                Console.WriteLine(item.Key + " medeltemp: " + item.Value);
+                Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value,2));
             }
         }
     }

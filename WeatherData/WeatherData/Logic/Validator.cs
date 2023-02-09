@@ -34,8 +34,6 @@ namespace WeatherData.Logic
                 }
             }
         }
-
-        
         internal static string GetDate(string instruction, string pattern)
         {
             while (true)
