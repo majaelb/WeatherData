@@ -1,4 +1,5 @@
 ﻿using WeatherData.Logic;
+using WeatherData.Models;
 
 namespace WeatherData
 {
@@ -8,8 +9,8 @@ namespace WeatherData
         {
             //List<Data> weatherlist = Data.CreateOneWeatherDataList();
             //InputManager.GetAvgTest(weatherlist);
-            Menu.Run();
-            
+            //Menu.Run();
+            FallOrWinter.Run();            
         }
     }
 }

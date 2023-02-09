@@ -3,30 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WeatherData.Interfaces;
 using WeatherData.Logic;
 
 namespace WeatherData.Models
 {
-    internal class SortedWeather : IMeasurable
+    internal class FallOrWinter
     {
-        private readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
+        private static readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
 
-        private string? chosenPlace;
-        private string? chosenCategory;
-        private Dictionary<string, double>? dateAndAvg;
-       
-        public void Run()
+        public static void Run()
         {
-            chosenPlace = InputManager.GetPlace();
-            if (chosenPlace == null) return;
-            chosenCategory = InputManager.ChooseCategory();
-            if (chosenCategory == null) return;
-            dateAndAvg = GetAvg();
-            Print();
-        }
-        public Dictionary<string, double> GetAvg()
-        {
+            string chosenPlace = InputManager.GetPlace();
+            string chosenCategory = InputManager.ChooseCategory();
             List<Data> correctDateandPlace = new();
             Dictionary<string, double> dateAndAvg = new();
             var groupByDay = weatherList
@@ -41,27 +29,28 @@ namespace WeatherData.Models
 
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
                 int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
-                if (chosenCategory == "temp") dateAndAvg.Add(day.Key, avgTemp);               
+                if (chosenCategory == "temp") dateAndAvg.Add(day.Key, avgTemp);
                 else if (chosenCategory == "hum") dateAndAvg.Add(day.Key, avgHum);
                 //else if (chosenCategory == "mold") dateAndAvg.Add(day.Key, avgMold);
-
             }
 
-            return dateAndAvg;
-        }
+            var duplicates = dateAndAvg
+                .GroupBy(i=>i.Value < 10)
+                .Where(g => g.Count() > 5)
+                .Select(g => g.Key) .ToList();
 
-        public void Print()
-        {
-            foreach (var item in chosenCategory == "temp" ? (dateAndAvg.OrderByDescending(t => t.Value)) : dateAndAvg.OrderBy(t => t.Value))
+            foreach (var item in duplicates)
             {
-                Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 2));
+                Console.WriteLine(item);
             }
-
             //Sorterar endast på datum
             //foreach (var item in dateAndAvg)
             //{
             //    Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 2));
             //}
         }
+
+
+ 
     }
 }
