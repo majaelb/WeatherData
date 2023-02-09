@@ -33,9 +33,6 @@ namespace WeatherData.Logic
             return chosenPlace;
             }
         }
-
-
-
         internal static void GetAvg(List<Data> weatherList)
         {
             while (true)
@@ -57,32 +54,6 @@ namespace WeatherData.Logic
             }
         }
 
-        internal static void GetAvgTest(List<Data> weatherList)
-        {
-            string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute? ", "^Inne|inne|Ute|ute$");
-            List<Data> correctDateandPlace = new();
-            Dictionary<string, double> dateAndAvg = new();
-            if (inOrOut == null) return;
-            var groupByDay = weatherList
-                .GroupBy(x => x.Year + x.Month + x.Day);
-
-            foreach (var day in groupByDay)
-            {
-                correctDateandPlace = weatherList
-                                                  .Where(d => (d.Year + d.Month + d.Day)
-                                                  .Equals(day.Key) && d.InOrOut == inOrOut.ToLower())
-                                                  .ToList();
-
-                double avgTemp = correctDateandPlace.Average(t => t.Temp);
-                double avgHum = correctDateandPlace.Average(t => t.Humidity);
-                dateAndAvg.Add(day.Key, avgTemp);
-                //TODO: Fråga om humidity/temp och gör ternary i dateandavg.add?
-            }
-            foreach (var item in dateAndAvg.OrderByDescending(t => t.Value))
-            {
-                Console.WriteLine(item.Key + " medeltemp: " + item.Value);
-            }
-
-        }
+        
     }
 }

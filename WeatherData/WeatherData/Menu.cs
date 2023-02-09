@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherData.Logic;
+using WeatherData.Models;
 
 namespace WeatherData
 {
     internal class Menu
     {
-        private static List<Data> weatherList = Data.CreateOneWeatherDataList();
+        //private static List<Data> weatherList = Data.CreateOneWeatherDataList();
 
         public static void Run()
         {
+            WeatherManager weatherManager= new WeatherManager();
             bool runProgram = true;
             while (runProgram)
             {
@@ -26,7 +28,7 @@ namespace WeatherData
                     case ConsoleKey.NumPad1:
                         Console.Clear();
                         Helper.ActiveChoice("Medeltemperatur");
-                        InputManager.GetAvg(weatherList);
+                        weatherManager.Run();
                         Console.ReadKey();
                         Console.Clear();
                         break;

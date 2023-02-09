@@ -13,6 +13,5 @@ namespace WeatherData.Logic
             Inne = 1,
             Ute
         }
-
     }
 }

@@ -119,7 +119,6 @@ namespace WeatherData.Logic
                 }
             }
         }
-
         internal static int GetInt(string instruction)
         {
             while (true)
