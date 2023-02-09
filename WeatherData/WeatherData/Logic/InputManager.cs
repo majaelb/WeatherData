@@ -14,7 +14,7 @@ namespace WeatherData.Logic
             int lower = (int)Enums.PlaceOption.Inne;
             int upper = (int)Enums.PlaceOption.Ute;
 
-            int inOrOut = Validator.GetIntInRange("Vill du se data för [1] = inne eller [2] = ute :", lower, upper);
+            int inOrOut = Validator.GetIntInRange("Vill du se data för [1] = inne eller [2] = ute: ", lower, upper);
             if (inOrOut == -1) return null;
             
             string chosenPlace;
@@ -34,7 +34,7 @@ namespace WeatherData.Logic
             int middle = (int)Enums.Category.Humidity;
             int upper = (int)Enums.Category.Mold;
 
-            int category = Validator.GetIntInRange("Vill du se data för [1] = temperatur, [2] = luftfuktighet eller [3] = Mögelrisk:", lower, upper);
+            int category = Validator.GetIntInRange("Vill du se data för [1] = temperatur, [2] = luftfuktighet eller [3] = mögelrisk: ", lower, upper);
             if (category == -1) return null;
 
             if (category == lower)
