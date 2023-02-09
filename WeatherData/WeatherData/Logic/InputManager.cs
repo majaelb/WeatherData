@@ -9,6 +9,33 @@ namespace WeatherData.Logic
 {
     internal class InputManager
     {
+        public static string GetPlace()
+        {
+            while (true)
+            {
+
+                int inOrOut = Validator.GetInt("Vill du se data för [1] = inne eller [2] = ute :");
+                if (inOrOut == -1) return null;
+                string chosenPlace;
+
+                switch (inOrOut)
+                {
+                    case (int)Enums.PlaceOption.Inne:
+                        chosenPlace = "inne";
+                        break;
+                    case (int)Enums.PlaceOption.Ute:
+                        chosenPlace = "ute";
+                        break;
+                    default:
+                        Console.WriteLine("Ogiltigt val, försök igen.");
+                        continue;
+                }
+            return chosenPlace;
+            }
+        }
+
+
+
         internal static void GetAvg(List<Data> weatherList)
         {
             while (true)
@@ -32,55 +59,30 @@ namespace WeatherData.Logic
 
         internal static void GetAvgTest(List<Data> weatherList)
         {
-            List<string> avgTemps = new();
-            List<string> avgHums = new();
             string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute? ", "^Inne|inne|Ute|ute$");
+            List<Data> correctDateandPlace = new();
+            Dictionary<string, double> dateAndAvg = new();
             if (inOrOut == null) return;
-            var groupByDay = weatherList.GroupBy(x => x.Year + x.Month + x.Day);
+            var groupByDay = weatherList
+                .GroupBy(x => x.Year + x.Month + x.Day);
+
             foreach (var day in groupByDay)
             {
-                //Console.WriteLine("Datum: " + day.Key);  //Each group has a key 
-                List<Data> correctDateandPlace = weatherList
+                correctDateandPlace = weatherList
                                                   .Where(d => (d.Year + d.Month + d.Day)
                                                   .Equals(day.Key) && d.InOrOut == inOrOut.ToLower())
                                                   .ToList();
+
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
                 double avgHum = correctDateandPlace.Average(t => t.Humidity);
-                avgTemps.Add(day.Key + " medeltemp: " + avgTemp);
-                avgHums.Add(day.Key + avgHum);
+                dateAndAvg.Add(day.Key, avgTemp);
+                //TODO: Fråga om humidity/temp och gör ternary i dateandavg.add?
             }
-            
-            foreach(var day in avgTemps)
+            foreach (var item in dateAndAvg.OrderByDescending(t => t.Value))
             {
-                Console.WriteLine(day);
+                Console.WriteLine(item.Key + " medeltemp: " + item.Value);
             }
 
-        }
-
-        internal static void SortPerMonth(List<Data> weatherList)
-        {
-            //TODO:
-            while (true)
-            {
-                string inOrOut = Validator.RegexCheck("Vill du se data för inne eller ute? ", "^Inne|inne|Ute|ute$");
-                if (inOrOut == null) return;
-                string yearMonth = Validator.GetDate("Ange år och månad som du vill se data för (yyMM)? ", "^\\d{4}$");
-                if (yearMonth == null) return;
-
-                foreach (var d in Data.WeatherData.Where(d => (d.Year + d.Month) == yearMonth))
-                {
-
-                }
-                //List<Data> correctDateandPlace = weatherList
-                //                                .Where(d => (d.Year + d.Month + d.Day)
-                //                                .Equals(date) && d.InOrOut.ToLower() == inOrOut.ToLower())
-                //                                .ToList();
-                //double avgTemp = correctDateandPlace.Average(t => t.Temp);
-                //double avgHum = correctDateandPlace.Average(t => t.Humidity);
-
-                //Console.WriteLine($"Medeltemperatur för {yearMonth} är {Math.Round(avgTemp, 2)}.");
-                //Console.WriteLine($"Medelfuktigheten för {yearMonth} är {Math.Round(avgHum, 2)}.");
-            }
         }
     }
 }
