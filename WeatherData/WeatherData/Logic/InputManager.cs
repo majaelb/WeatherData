@@ -29,6 +29,32 @@ namespace WeatherData.Logic
             return null;
 
         }
+
+        public static string ChooseCategory()
+        {
+            int lower = (int)Enums.Category.Temp;
+            int middle = (int)Enums.Category.Humidity;
+            int upper = (int)Enums.Category.Mold;
+
+            int category = Validator.GetIntInRange("Vill du se data för [1] = temperatur, [2] = luftfuktighet eller [3] = Mögelrisk:", lower, upper);
+            if (category == -1) return null;
+
+            if (category == lower)
+            {
+                return "temp";
+            }
+            else if (category == middle)
+            {
+                return "hum";
+            }
+            else if (category == upper)
+            {
+                return "mold";
+            }
+            return null;
+
+        }
+
         internal static void GetAvg(List<Data> weatherList)
         {
             while (true)

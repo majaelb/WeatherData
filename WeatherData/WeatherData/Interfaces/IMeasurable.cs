@@ -9,8 +9,7 @@ namespace WeatherData.Interfaces
     interface IMeasurable
     {
         void Run();
-        string TakeInput();
-        Dictionary<string,double> GetAvg(string chosenPlace);
+        Dictionary<string,double> GetAvg(string chosenPlace, string chosenCategory);
         void Print(Dictionary<string, double> dateAndAvg);
         
     }

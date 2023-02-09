@@ -13,5 +13,11 @@ namespace WeatherData.Logic
             Inne = 1,
             Ute
         }
+        public enum Category
+        {
+            Temp = 1,
+            Humidity,
+            Mold
+        }
     }
 }

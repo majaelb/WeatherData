@@ -13,6 +13,7 @@ namespace WeatherData.Models
         private List<Data> weatherList = Data.CreateOneWeatherDataList();
 
         private string chosenPlace;
+        private string chosenCategory;
         private Dictionary<string, double> dateAndAvg;
        
         public WeatherManager()
@@ -21,34 +22,15 @@ namespace WeatherData.Models
 
         public void Run()
         {
-            chosenPlace = TakeInput();
-            dateAndAvg = GetAvg(chosenPlace);
+            chosenPlace = InputManager.GetPlace();
+            chosenCategory = InputManager.ChooseCategory();
+            dateAndAvg = GetAvg(chosenPlace, chosenCategory);         
             //TakeInput();
             //GetAvg(chosenPlace);
             Print(dateAndAvg);
         }
-        public string TakeInput()
-        {
-            int lower = (int)Enums.PlaceOption.Inne;
-            int upper = (int)Enums.PlaceOption.Ute;
-
-            int inOrOut = Validator.GetIntInRange("Vill du se data för [1] = inne eller [2] = ute :", lower, upper);
-            if (inOrOut == -1) return null;
-
-            string chosenPlace;
-            if (inOrOut == lower)
-            {
-                return "inne";
-            }
-            else if (inOrOut == upper)
-            {
-                return "ute";
-            }
-            return null;
-            //if (chosenPlace == null) return null;
-            
-        }
-        public Dictionary<string, double> GetAvg(string chosenPlace)
+      
+        public Dictionary<string, double> GetAvg(string chosenPlace, string chosenCategory)
         {
             //string chosenPlace = TakeInput();
             if (chosenPlace == null) return null;
@@ -65,9 +47,11 @@ namespace WeatherData.Models
                                      .ToList();
 
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
-                double avgHum = correctDateandPlace.Average(t => t.Humidity);
-                dateAndAvg.Add(day.Key, avgTemp);
-                //TODO: Fråga om humidity/temp och gör ternary i dateandavg.add?
+                int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
+                if (chosenCategory == "temp") dateAndAvg.Add(day.Key, avgTemp);               
+                else if (chosenCategory == "hum") dateAndAvg.Add(day.Key, avgHum);
+                //else if (chosenCategory == "mold") dateAndAvg.Add(day.Key, avgMold);
+
             }
 
             return dateAndAvg;
