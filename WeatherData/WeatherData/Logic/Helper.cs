@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,20 +10,6 @@ namespace WeatherData.Logic
 {
     internal class Helper
     {
-        internal static double CountAvg(List<double> avgList)
-        {
-            double total = 0;
-
-            foreach (var t in avgList)
-            {
-                total += t;
-            }
-
-            double avg = total / avgList.Count;
-
-            return avg;
-        }
-        
         internal static void ActiveChoice(string choice) //Skriver ut var på sidan man befinner sig efter ett knappval i en meny
         {
             Console.WriteLine("Aktivt val:");
@@ -31,5 +18,6 @@ namespace WeatherData.Logic
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine();
         }
+
     }
 }

@@ -42,6 +42,14 @@ namespace WeatherData
                         break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
+                        Console.Clear();
+                        Helper.ActiveChoice("Säsongstart");
+                        SeasonStart.RunTest();
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.D4:
+                    case ConsoleKey.NumPad4:
                         runProgram = false;
                         break;
                 }
@@ -49,7 +57,7 @@ namespace WeatherData
         }
         private static void PrintChoices()
         {
-            List<string> menuOptions = new List<string> { "Medeltemperatur", "Sortering", "Avsluta" };
+            List<string> menuOptions = new List<string> { "Medeltemperatur", "Sortering","Säsongstart", "Avsluta" };
             PrintList(menuOptions);
         }
 
