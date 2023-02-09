@@ -11,13 +11,13 @@ namespace WeatherData
     internal class Data
     {
 
-        public string Year { get; set; }
-        public string Month { get; set; }
-        public string Day { get; set; }
+        public string? Year { get; set; }
+        public string? Month { get; set; }
+        public string? Day { get; set; }
         public int Hour { get; set; }
         public int Minute { get; set; }
         public int Second { get; set; }
-        public string InOrOut { get; set; }
+        public string? InOrOut { get; set; }
         public double Temp { get; set; }
         public int Humidity { get; set; }
 

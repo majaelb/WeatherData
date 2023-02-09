@@ -10,17 +10,20 @@ namespace WeatherData.Models
 {
     internal class ChosenDateWeather : IMeasurable
     {
-        private List<Data> weatherList = Data.CreateOneWeatherDataList();
+        private readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
 
-        private string chosenPlace;
-        private string chosenCategory;
-        private Dictionary<string, double> dateAndAvg;
-        private string chosenDate;
+        private string? chosenPlace;
+        private string? chosenCategory;
+        private Dictionary<string, double>? dateAndAvg;
+        private string? chosenDate;
         public void Run()
         {
             chosenPlace = InputManager.GetPlace();
+            if (chosenPlace == null) return;
             chosenDate = Validator.GetDate("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$");
+            if(chosenDate == null) return;
             chosenCategory = InputManager.ChooseCategory();
+            if (chosenCategory == null) return;
             dateAndAvg = GetAvg();
             Print();
         }

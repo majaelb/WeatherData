@@ -10,27 +10,23 @@ namespace WeatherData.Models
 {
     internal class SortedWeather : IMeasurable
     {
-        private List<Data> weatherList = Data.CreateOneWeatherDataList();
+        private readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
 
-        private string chosenPlace;
-        private string chosenCategory;
-        private Dictionary<string, double> dateAndAvg;
+        private string? chosenPlace;
+        private string? chosenCategory;
+        private Dictionary<string, double>? dateAndAvg;
        
-        public SortedWeather()
-        {
-        }
-
         public void Run()
         {
             chosenPlace = InputManager.GetPlace();
+            if (chosenPlace == null) return;
             chosenCategory = InputManager.ChooseCategory();
+            if (chosenCategory == null) return;
             dateAndAvg = GetAvg();
             Print();
         }
         public Dictionary<string, double> GetAvg()
         {
-            //string chosenPlace = TakeInput();
-            if (chosenPlace == null) return null;
             List<Data> correctDateandPlace = new();
             Dictionary<string, double> dateAndAvg = new();
             var groupByDay = weatherList
