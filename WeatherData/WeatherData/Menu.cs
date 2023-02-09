@@ -14,11 +14,10 @@ namespace WeatherData
 
         public static void Run()
         {
-            WeatherManager weatherManager= new WeatherManager();
+            WeatherManager weatherManager = new WeatherManager();
             bool runProgram = true;
             while (runProgram)
             {
-
                 PrintChoices();
                 var key = Console.ReadKey(true).Key;
 

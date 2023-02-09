@@ -11,19 +11,46 @@ namespace WeatherData.Models
     internal class WeatherManager : IMeasurable
     {
         private List<Data> weatherList = Data.CreateOneWeatherDataList();
+
+        private string chosenPlace;
+        private Dictionary<string, double> dateAndAvg;
+       
+        public WeatherManager()
+        {
+        }
+
         public void Run()
-        {          
-            Print();
+        {
+            chosenPlace = TakeInput();
+            dateAndAvg = GetAvg(chosenPlace);
+            //TakeInput();
+            //GetAvg(chosenPlace);
+            Print(dateAndAvg);
         }
         public string TakeInput()
         {
-            string chosenPlace = InputManager.GetPlace();
-            if (chosenPlace == null) return null;
-            return chosenPlace;
+            int lower = (int)Enums.PlaceOption.Inne;
+            int upper = (int)Enums.PlaceOption.Ute;
+
+            int inOrOut = Validator.GetIntInRange("Vill du se data för [1] = inne eller [2] = ute :", lower, upper);
+            if (inOrOut == -1) return null;
+
+            string chosenPlace;
+            if (inOrOut == lower)
+            {
+                return "inne";
+            }
+            else if (inOrOut == upper)
+            {
+                return "ute";
+            }
+            return null;
+            //if (chosenPlace == null) return null;
+            
         }
-        public Dictionary<string, double> GetAvg()
+        public Dictionary<string, double> GetAvg(string chosenPlace)
         {
-            string chosenPlace = TakeInput();
+            //string chosenPlace = TakeInput();
             if (chosenPlace == null) return null;
             List<Data> correctDateandPlace = new();
             Dictionary<string, double> dateAndAvg = new();
@@ -46,10 +73,8 @@ namespace WeatherData.Models
             return dateAndAvg;
         }
 
-        public void Print()
+        public void Print(Dictionary<string, double> dateAndAvg)
         {
-            Dictionary<string, double> dateAndAvg = GetAvg();
-
             foreach (var item in dateAndAvg.OrderByDescending(t => t.Value))
             {
                 Console.WriteLine(item.Key + " medeltemp: " + item.Value);

@@ -10,8 +10,8 @@ namespace WeatherData.Interfaces
     {
         void Run();
         string TakeInput();
-        Dictionary<string,double> GetAvg();
-        void Print();
+        Dictionary<string,double> GetAvg(string chosenPlace);
+        void Print(Dictionary<string, double> dateAndAvg);
         
     }
 }
