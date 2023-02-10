@@ -94,5 +94,6 @@ namespace WeatherData.Models
                 Console.WriteLine("Det fanns ingen risk för mögel under perioden");
             }
         }
+
     }
 }

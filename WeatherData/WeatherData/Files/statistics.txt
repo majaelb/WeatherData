@@ -32,3 +32,37 @@ Medelluftfuktighet utomhus
 201612 78
 Hösten anlände 20161004 med temperaturen 7,3
 Vintern anlände nästan 20161106 med temperaturen -1
+
+Mögelrisk inomhus
+201606 Ingen mögelrisk
+201607 Ingen mögelrisk
+201608 Ingen mögelrisk
+201609 Ingen mögelrisk
+201610 Ingen mögelrisk
+201611 Ingen mögelrisk
+201612 Ingen mögelrisk
+Mögelrisk utomhus
+201606 Ingen mögelrisk
+201607 Ingen mögelrisk
+201608 Ingen mögelrisk
+201609 Ingen mögelrisk
+201610 Ingen mögelrisk
+201611 Medelhög mögelrisk
+201612 Låg mögelrisk
+
+if (avgTemp < 0 || avgTemp > 50 || avgHum < 65)
+{
+    dateAndMoldRisk.Add(day.Key + " " + noRisk);
+}
+else if (avgTemp > 0 && avgHum > 65 && avgHum < 81)
+{
+    dateAndMoldRisk.Add(day.Key + " " + low);
+}
+else if (avgTemp > 2 && avgHum > 80 && avgHum < 86)
+{
+    dateAndMoldRisk.Add(day.Key + " " + middle);
+}
+else if (avgTemp > 5 && avgHum > 85)
+{
+    dateAndMoldRisk.Add(day.Key + " " + high);
+}

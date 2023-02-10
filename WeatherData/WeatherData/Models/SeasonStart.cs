@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace WeatherData.Models
 
         public void Run()
         {
+            Delegates.MyDelegate del = Delegates.SaveToFile;
             int maxTempAutumn = 10;
             //ändrade temperaturen till 1 för att få ut data. Vintern visades inte p.g.a 0 inte sker 5 dagar i rad.
             //borde gå att ändra vid getSeasonstart
@@ -31,7 +33,7 @@ namespace WeatherData.Models
             autumnStart = GetSeasonStart(maxTempAutumn);
             winterStart = GetSeasonStart(maxTempWinter);
             Print();
-            WriteToFile();
+            //WriteToFile(del);
             stopWatch.Stop();
 
             TimeSpan ts = stopWatch.Elapsed;
@@ -106,8 +108,9 @@ namespace WeatherData.Models
                 }
             }
         }  
-        public void WriteToFile()
+        public void WriteToFile(Delegates.MyDelegate del)
         {
+            
             string autumn = "";
             string winter = "";
 
@@ -119,9 +122,8 @@ namespace WeatherData.Models
             {
                 winter = "Vintern anlände nästan "+ item.Key + " med temperaturen " + item.Value.ToString();
             }
-
-            File.AppendAllText(path + filename, autumn + Environment.NewLine);
-            File.AppendAllText(path + filename, winter + Environment.NewLine);
+            del(path + filename, autumn);
+            del(path + filename, winter);
         }
     }
 }

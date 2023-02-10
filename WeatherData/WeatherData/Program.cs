@@ -7,12 +7,8 @@ namespace WeatherData
     {
         static void Main(string[] args)
         {
-            //List<Data> weatherlist = Data.CreateOneWeatherDataList();
-            //InputManager.GetAvgTest(weatherlist);
+            
             Menu.Run();
-            //FileManager.AvgMonth();
-            //SortedMoldRisk sortedMoldRisk = new();
-            //sortedMoldRisk.Run();
         }
     }
 }
