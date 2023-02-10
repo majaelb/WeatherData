@@ -27,7 +27,7 @@ namespace WeatherData.Models
             //ändrade temperaturen till 1 för att få ut data. Vintern visades inte p.g.a 0 inte sker 5 dagar i rad.
             //borde gå att ändra vid getSeasonstart
             int maxTempWinter = 1;
-            Stopwatch stopWatch = new Stopwatch();
+            Stopwatch stopWatch = new();
             stopWatch.Start();
             dateAndAvg = GetAvg();
             autumnStart = GetSeasonStart(maxTempAutumn);
@@ -35,14 +35,8 @@ namespace WeatherData.Models
             Print();
             //WriteToFile(del);
             stopWatch.Stop();
-
             TimeSpan ts = stopWatch.Elapsed;
-            // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                                                ts.Hours, ts.Minutes, ts.Seconds,
-                                                ts.Milliseconds / 10);
-            Console.SetCursorPosition(70, 0);
-            Console.WriteLine("RunTime " + elapsedTime);
+            Helper.TimeCount(ts);
         }
         public Dictionary<string, double> GetAvg()
         {

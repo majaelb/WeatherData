@@ -19,8 +19,7 @@ namespace WeatherData.Models
 
 
         public void WriteMoldRiskToFile()
-        {
-           
+        {           
             string chosenPlace = InputManager.GetPlace();
             List<Data> correctDateandPlace = new();
             List<double> dateAndAvg = new();

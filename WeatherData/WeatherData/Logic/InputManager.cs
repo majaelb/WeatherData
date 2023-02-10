@@ -28,7 +28,7 @@ namespace WeatherData.Logic
             }             
             return null;
         }
-        public static string ChooseCategory()
+        public static string GetCategory()
         {
             int lower = (int)Enums.Category.Temp;
             int middle = (int)Enums.Category.Humidity;

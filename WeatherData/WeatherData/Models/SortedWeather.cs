@@ -21,24 +21,17 @@ namespace WeatherData.Models
         {
             chosenPlace = InputManager.GetPlace();
             if (chosenPlace == null) return;
-            chosenCategory = InputManager.ChooseCategory();
+            chosenCategory = InputManager.GetCategory();
             if (chosenCategory == null) return;
-            //Timer att köra programmet
-            Stopwatch stopWatch = new Stopwatch();
+            Stopwatch stopWatch = new();
             stopWatch.Start();
             dateAndAvg = GetAvg();
             Print();
             stopWatch.Stop();
-
             TimeSpan ts = stopWatch.Elapsed;
-            // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                                                ts.Hours, ts.Minutes, ts.Seconds,
-                                                ts.Milliseconds / 10);
-            Console.SetCursorPosition(70, 0);
-            Console.WriteLine("RunTime " + elapsedTime);
+            Helper.TimeCount(ts);            
         }
-
+   
         public Dictionary<string, double> GetAvg()
         {
             List<Data> correctDateandPlace = new();
@@ -69,7 +62,6 @@ namespace WeatherData.Models
             Console.ResetColor();
             foreach (var item in chosenCategory == "temp" ? dateAndAvg.OrderByDescending(t => t.Value) : dateAndAvg.OrderBy(t => t.Value))
             {
-
                 $"{item.Key} medelvärde: {Math.Round(item.Value, 1)}".Cw();
             }
         }

@@ -14,28 +14,19 @@ namespace WeatherData.Models
         private readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
 
         private string? chosenPlace;
-        private string? chosenCategory;
         private Dictionary<string, string>? dateAndRisk;
 
         public void Run()
         {
             chosenPlace = InputManager.GetPlace();
-            if (chosenPlace == null) return;          
-            //Timer att köra programmet
+            if (chosenPlace == null) return;
             Stopwatch stopWatch = new();
             stopWatch.Start();
             dateAndRisk = GetAvg();
             Print();
             stopWatch.Stop();
-
             TimeSpan ts = stopWatch.Elapsed;
-            // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                                                ts.Hours, ts.Minutes, ts.Seconds,
-                                                ts.Milliseconds / 10);
-            Console.SetCursorPosition(70, 0);
-            Console.WriteLine("RunTime " + elapsedTime);
-
+            Helper.TimeCount(ts);
         }
 
         public Dictionary<string, string> GetAvg()
@@ -60,7 +51,7 @@ namespace WeatherData.Models
 
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
                 int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
-                if(avgTemp < 0 || avgTemp > 50 || avgHum < 65)
+                if (avgTemp < 0 || avgTemp > 50 || avgHum < 65)
                 {
                     dateAndMoldRisk.Add(day.Key, noRisk);
                 }
@@ -76,7 +67,7 @@ namespace WeatherData.Models
                 {
                     dateAndMoldRisk.Add(day.Key, high);
                 }
-            }           
+            }
             return dateAndMoldRisk;
         }
 

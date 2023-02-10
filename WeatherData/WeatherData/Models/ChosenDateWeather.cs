@@ -23,22 +23,15 @@ namespace WeatherData.Models
             if (chosenPlace == null) return;
             chosenDate = Validator.GetDate("Vilket datum vill du visa medelvärde för?(yyyyMMdd): ", "^\\d{8}$");
             if(chosenDate == null) return;
-            chosenCategory = InputManager.ChooseCategory();
+            chosenCategory = InputManager.GetCategory();
             if (chosenCategory == null) return;
-
-            Stopwatch stopWatch = new Stopwatch();
+            Stopwatch stopWatch = new();
             stopWatch.Start();
             dateAndAvg = GetAvg();
             Print();
             stopWatch.Stop();
-
             TimeSpan ts = stopWatch.Elapsed;
-            // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                                                ts.Hours, ts.Minutes, ts.Seconds,
-                                                ts.Milliseconds / 10);
-            Console.SetCursorPosition(70, 0);
-            Console.WriteLine("RunTime " + elapsedTime);
+            Helper.TimeCount(ts);
         }
         public Dictionary<string, double> GetAvg()
         {

@@ -10,6 +10,7 @@ namespace WeatherData
 {
     internal class Data
     {
+        private static readonly string[] weatherDataFromFile = File.ReadAllLines("../../../Files/tempdata5-med fel.txt");
 
         public string? Year { get; set; }
         public string? Month { get; set; }
@@ -25,9 +26,8 @@ namespace WeatherData
 
         public static List<Data> CreateOneWeatherDataList()
         {
-            string[] weatherData = File.ReadAllLines("../../../Files/tempdata5-med fel.txt");
             Regex regex = new("(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2}) (?<hour>[0-2][0-9]):(?<min>[0-5][0-9]):(?<sec>[0-5][0-9]),(?<inOrOut>\\w{3,4}),(?<temp>\\-?\\d{1,2}\\.\\d),(?<hum>\\d{2})");
-            foreach (var line in weatherData)
+            foreach (var line in weatherDataFromFile)
             {
                 Match match = regex.Match(line);
                 if (match.Success)
