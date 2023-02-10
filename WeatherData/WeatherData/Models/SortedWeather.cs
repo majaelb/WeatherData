@@ -35,6 +35,7 @@ namespace WeatherData.Models
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                                                 ts.Hours, ts.Minutes, ts.Seconds,
                                                 ts.Milliseconds / 10);
+            Console.SetCursorPosition(70, 0);
             Console.WriteLine("RunTime " + elapsedTime);
         }
 
@@ -66,7 +67,7 @@ namespace WeatherData.Models
         {
             foreach (var item in chosenCategory == "temp" ? dateAndAvg.OrderByDescending(t => t.Value) : dateAndAvg.OrderBy(t => t.Value))
             {
-                Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 2));
+                Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 1));
             }
 
             //Sorterar endast på datum

@@ -21,11 +21,22 @@ namespace WeatherData.Models
             //ändrade temperaturen till 1 för att få ut data. Vintern visades inte p.g.a 0 inte sker 5 dagar i rad.
             //borde gå att ändra vid getSeasonstart
             int maxTempWinter = 1;
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             dateAndAvg = GetAvg();
             //seasonStart = GetSeasonStart();
             autumnStart = GetSeasonStart(maxTempAutumn);
             winterStart = GetSeasonStart(maxTempWinter);
             Print();
+            stopWatch.Stop();
+
+            TimeSpan ts = stopWatch.Elapsed;
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                                                ts.Hours, ts.Minutes, ts.Seconds,
+                                                ts.Milliseconds / 10);
+            Console.SetCursorPosition(70, 0);
+            Console.WriteLine("RunTime " + elapsedTime);
         }
         public Dictionary<string, double> GetAvg()
         {
@@ -79,7 +90,7 @@ namespace WeatherData.Models
                 Console.Write("Hösten anlände: ");
                 foreach (var s in autumnStart.Take(1))
                 {
-                    Console.WriteLine($"{s.Key} med {Math.Round(s.Value,2)} grader");
+                    Console.WriteLine($"{s.Key} med {Math.Round(s.Value,1)} grader");
                 }
             }
             if (winterStart.Count == 5)
@@ -87,7 +98,7 @@ namespace WeatherData.Models
                 Console.Write("Vintern anlände: ");
                 foreach (var s in winterStart.Take(1))
                 {
-                    Console.WriteLine($"{s.Key} med {Math.Round(s.Value,2)} grader");
+                    Console.WriteLine($"{s.Key} med {Math.Round(s.Value,1)} grader");
                 }
             }
         }

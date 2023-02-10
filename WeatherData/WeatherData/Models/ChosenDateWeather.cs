@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,20 @@ namespace WeatherData.Models
             if(chosenDate == null) return;
             chosenCategory = InputManager.ChooseCategory();
             if (chosenCategory == null) return;
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             dateAndAvg = GetAvg();
             Print();
+            stopWatch.Stop();
+
+            TimeSpan ts = stopWatch.Elapsed;
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                                                ts.Hours, ts.Minutes, ts.Seconds,
+                                                ts.Milliseconds / 10);
+            Console.SetCursorPosition(70, 0);
+            Console.WriteLine("RunTime " + elapsedTime);
         }
         public Dictionary<string, double> GetAvg()
         {
@@ -48,7 +61,7 @@ namespace WeatherData.Models
         {
             foreach (var item in dateAndAvg.OrderByDescending(t => t.Value))
             {
-                Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value,2));
+                Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value,1));
             }
         }
     }
