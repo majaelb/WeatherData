@@ -26,12 +26,10 @@ namespace WeatherData.Models
 
         public static void AvgMonth()
         {
-            //string inside = "inne";
-            //string outside = "ute";
             string chosenPlace = InputManager.GetPlace();
             List<Data> correctDateandPlace = new();
-            Dictionary<string, double> avgTempMonth = new();
-            Dictionary<string, double> avgHumMonth = new();
+            List<string> avgTempMonth = new();
+            List<string> avgHumMonth = new();
             var groupByMonth = weatherList
                             .GroupBy(x => x.Year + x.Month);
 
@@ -45,36 +43,32 @@ namespace WeatherData.Models
                                      .Equals(month.Key) && d.InOrOut == chosenPlace)
                                      .ToList();
 
-                double avgTemp = correctDateandPlace.Average(t => t.Temp);
-                int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
+                string avgTemp = correctDateandPlace.Average(t => t.Temp).ToString();
+                string avgHum = correctDateandPlace.Average(t => t.Humidity).ToString();
 
-                avgTempMonth.Add(month.Key, avgTemp);
-                
-                avgHumMonth.Add(month.Key, avgHum);
-                File.AppendAllLines(path + filename, avgHumMonth.ToArray());
+                avgTempMonth.Add(month.Key + " " + avgTemp);
+                File.WriteAllLines(path + filename, avgTempMonth);
+                avgHumMonth.Add(month.Key + " " + avgHum);
+                File.AppendAllLines(path + filename, avgHumMonth);
 
-                foreach(var item in avgTempMonth)
-                {
-
-                    File.WriteAllLines(path + filename, item);
-                }
+              
 
 
                 //if (chosenCategory == "temp") dateAndAvg.Add(month.Key, avgTemp);
                 //else if (chosenCategory == "hum") dateAndAvg.Add(month.Key, avgHum);
             }
-            foreach (var month in avgTempMonth)
-            {
+            //foreach (var month in avgTempMonth)
+            //{
 
-                Console.WriteLine($"Medeltemperaturen för {month.Key} : {Math.Round(month.Value, 1)} grader ");
+            //    Console.WriteLine($"Medeltemperaturen för {month.Key} : {Math.Round(month.Value, 1)} grader ");
 
-            }
-            foreach (var month in avgHumMonth)
-            {
+            //}
+            //foreach (var month in avgHumMonth)
+            //{
 
-                Console.WriteLine($"Medelluftfuktigheten för {month.Key} :{month.Value}%");
+            //    Console.WriteLine($"Medelluftfuktigheten för {month.Key} :{month.Value}%");
 
-            }
+            //}
 
         }
 
