@@ -14,8 +14,9 @@ namespace WeatherData
 
         public static void Run()
         {
-            SortedWeather weatherManager = new SortedWeather();
-            ChosenDateWeather chosenDate = new ChosenDateWeather();
+            SortedWeather weatherManager = new();
+            ChosenDateWeather chosenDate = new();
+            SeasonStart seasonStart = new();
             bool runProgram = true;
             while (runProgram)
             {
@@ -44,7 +45,7 @@ namespace WeatherData
                     case ConsoleKey.NumPad3:
                         Console.Clear();
                         Helper.ActiveChoice("Säsongstart");
-                        SeasonStart.RunTest();
+                        seasonStart.Run();
                         Console.ReadKey();
                         Console.Clear();
                         break;

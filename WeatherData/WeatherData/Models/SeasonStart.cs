@@ -4,29 +4,30 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherData.Interfaces;
 using WeatherData.Logic;
 
 namespace WeatherData.Models
 {
-    internal class SeasonStart
+    internal class SeasonStart : IMeasurable
     {
         private static readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
         private static Dictionary<string, double> ? dateAndAvg;
         private static Dictionary<string, double> ? autumnStart;
         private static Dictionary<string, double> ? winterStart;
-        public static void RunTest()
+        public void Run()
         {
             int maxTempAutumn = 10;
             //ändrade temperaturen till 1 för att få ut data. Vintern visades inte p.g.a 0 inte sker 5 dagar i rad.
             //borde gå att ändra vid getSeasonstart
             int maxTempWinter = 1;
-            dateAndAvg = GetAvgTemperatures();
+            dateAndAvg = GetAvg();
             //seasonStart = GetSeasonStart();
             autumnStart = GetSeasonStart(maxTempAutumn);
             winterStart = GetSeasonStart(maxTempWinter);
             Print();
         }
-        public static Dictionary<string, double> GetAvgTemperatures()
+        public Dictionary<string, double> GetAvg()
         {
             List<Data> correctDateandPlace = new();
             Dictionary<string, double> dateAndAvg = new();
@@ -43,22 +44,21 @@ namespace WeatherData.Models
                 int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
                 dateAndAvg.Add(day.Key, avgTemp);
             }
-
             return dateAndAvg;
         }
 
         public static Dictionary<string, double> GetSeasonStart(double maxTemp)
         {
             var sortedDateAndAvg = dateAndAvg.OrderBy(x => x.Key);
-            Dictionary<string, double> seasonStart = new Dictionary<string, double>();
+            Dictionary<string, double> seasonStart = new();
             int count = 0;
 
-            foreach (var item in sortedDateAndAvg)
+            foreach (var s in sortedDateAndAvg)
             {
-                if (item.Value <= maxTemp)
+                if (s.Value <= maxTemp)
                 {
                     count++;
-                    seasonStart.Add(item.Key, item.Value);
+                    seasonStart.Add(s.Key, s.Value);
                     if (count == 5)
                     {
                         break;
@@ -72,18 +72,7 @@ namespace WeatherData.Models
             }
             return seasonStart;
         }
-        //Fungerar ej hämtar inte data.
-        //public static Dictionary<string, double> GetSeasonStart(double maxTemp)
-        //{
-        //    var sortedDateAndAvg = dateAndAvg
-        //                           .OrderBy(x => x.Key)
-        //                           .TakeWhile((t, index) => t.Value <= maxTemp && (index + 1) % 5 != 0)
-        //                           .ToDictionary(x => x.Key, x => x.Value);
-
-        //    return sortedDateAndAvg;
-        //}
-
-        public static void Print()
+        public void Print()
         {
             if (autumnStart.Count == 5)
             {
