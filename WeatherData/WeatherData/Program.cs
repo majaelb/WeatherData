@@ -9,8 +9,8 @@ namespace WeatherData
         {
             //List<Data> weatherlist = Data.CreateOneWeatherDataList();
             //InputManager.GetAvgTest(weatherlist);
-            //Menu.Run();
-            FileManager.AvgMonth();
+            Menu.Run();
+            //FileManager.AvgMonth();
             //SortedMoldRisk sortedMoldRisk = new();
             //sortedMoldRisk.Run();
         }

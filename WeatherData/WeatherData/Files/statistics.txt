@@ -30,3 +30,5 @@ Medelluftfuktighet utomhus
 201610 65
 201611 83
 201612 78
+Hösten anlände 20161004 med temperaturen 7,3
+Vintern anlände nästan 20161106 med temperaturen -1

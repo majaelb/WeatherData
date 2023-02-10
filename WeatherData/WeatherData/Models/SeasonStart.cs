@@ -15,6 +15,10 @@ namespace WeatherData.Models
         private static Dictionary<string, double> ? dateAndAvg;
         private static Dictionary<string, double> ? autumnStart;
         private static Dictionary<string, double> ? winterStart;
+
+        private static string path = "../../../Files/";
+        private static string filename = "statistics.txt";
+
         public void Run()
         {
             int maxTempAutumn = 10;
@@ -27,6 +31,7 @@ namespace WeatherData.Models
             autumnStart = GetSeasonStart(maxTempAutumn);
             winterStart = GetSeasonStart(maxTempWinter);
             Print();
+            WriteToFile();
             stopWatch.Stop();
 
             TimeSpan ts = stopWatch.Elapsed;
@@ -50,8 +55,8 @@ namespace WeatherData.Models
                                      .Equals(day.Key) && d.InOrOut == "ute")
                                      .ToList();
 
-                double avgTemp = correctDateandPlace.Average(t => t.Temp);
-                int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
+                double avgTemp = Math.Round(correctDateandPlace.Average(t => t.Temp),1);
+                int avgHum = (int)Math.Round(correctDateandPlace.Average(t => t.Humidity),1);
                 dateAndAvg.Add(day.Key, avgTemp);
             }
             return dateAndAvg;
@@ -100,6 +105,23 @@ namespace WeatherData.Models
                     Console.WriteLine($"{s.Key} med {Math.Round(s.Value,1)} grader");
                 }
             }
-        }        
+        }  
+        public void WriteToFile()
+        {
+            string autumn = "";
+            string winter = "";
+
+            foreach(var item in autumnStart.Take(1))
+            {
+                autumn = "Hösten anlände "+ item.Key + " med temperaturen " + item.Value.ToString();               
+            }
+            foreach(var item in winterStart.Take(1))
+            {
+                winter = "Vintern anlände nästan "+ item.Key + " med temperaturen " + item.Value.ToString();
+            }
+
+            File.AppendAllText(path + filename, autumn + Environment.NewLine);
+            File.AppendAllText(path + filename, winter + Environment.NewLine);
+        }
     }
 }
