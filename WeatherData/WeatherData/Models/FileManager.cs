@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,34 +8,58 @@ using WeatherData.Logic;
 
 namespace WeatherData.Models
 {
-    internal class AvgTempMonth
+    internal class FileManager
     {
         private static readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
         private static double avgTemp;
         private static int avgHum;
 
+        public static void WriteToFile()
+        {
+            string path = "../../../Files/";
+
+            
+
+            //File.WriteAllLines(path + "statistics.txt", );
+
+        }
 
         public static void AvgMonth()
         {
-            string inside = "inne";
-            string outside = "ute";
+            //string inside = "inne";
+            //string outside = "ute";
+            string chosenPlace = InputManager.GetPlace();
             List<Data> correctDateandPlace = new();
             Dictionary<string, double> avgTempMonth = new();
             Dictionary<string, double> avgHumMonth = new();
             var groupByMonth = weatherList
                             .GroupBy(x => x.Year + x.Month);
 
+            string path = "../../../Files/";
+            string filename = "statistics.txt";
+
             foreach (var month in groupByMonth)
             {
                 correctDateandPlace = weatherList
                                      .Where(d => (d.Year + d.Month)
-                                     .Equals(month.Key))
+                                     .Equals(month.Key) && d.InOrOut == chosenPlace)
                                      .ToList();
 
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
                 int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
+
                 avgTempMonth.Add(month.Key, avgTemp);
+                
                 avgHumMonth.Add(month.Key, avgHum);
+                File.AppendAllLines(path + filename, avgHumMonth.ToArray());
+
+                foreach(var item in avgTempMonth)
+                {
+
+                    File.WriteAllLines(path + filename, item);
+                }
+
+
                 //if (chosenCategory == "temp") dateAndAvg.Add(month.Key, avgTemp);
                 //else if (chosenCategory == "hum") dateAndAvg.Add(month.Key, avgHum);
             }
@@ -52,6 +77,10 @@ namespace WeatherData.Models
             }
 
         }
+
+
+
+
         //public static void AvgMonth()
         //{
         //    string chosenPlace = InputManager.GetPlace();
