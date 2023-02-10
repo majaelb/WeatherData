@@ -57,8 +57,6 @@ namespace WeatherData.Models
                 int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
                 if (chosenCategory == "temp") dateAndAvg.Add(day.Key, avgTemp);               
                 else if (chosenCategory == "hum") dateAndAvg.Add(day.Key, avgHum);
-                //else if (chosenCategory == "mold") dateAndAvg.Add(day.Key, avgMold);
-
             }
             return dateAndAvg;
         }
@@ -73,12 +71,6 @@ namespace WeatherData.Models
             {
                 Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 1));
             }
-
-            //Sorterar endast på datum
-            //foreach (var item in dateAndAvg)
-            //{
-            //    Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 2));
-            //}
         }
     }
 }

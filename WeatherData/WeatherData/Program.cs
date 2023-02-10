@@ -9,10 +9,10 @@ namespace WeatherData
         {
             //List<Data> weatherlist = Data.CreateOneWeatherDataList();
             //InputManager.GetAvgTest(weatherlist);
-            //Menu.Run();
+            Menu.Run();
             //AvgTempMonth.AvgMonth();
-            SortedMoldRisk sortedMoldRisk = new();
-            sortedMoldRisk.Run();
+            //SortedMoldRisk sortedMoldRisk = new();
+            //sortedMoldRisk.Run();
         }
     }
 }

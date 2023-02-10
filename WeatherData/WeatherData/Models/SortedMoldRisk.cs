@@ -20,14 +20,12 @@ namespace WeatherData.Models
         public void Run()
         {
             chosenPlace = InputManager.GetPlace();
-            if (chosenPlace == null) return;
-            //chosenCategory = InputManager.ChooseCategory();
-            //if (chosenCategory == null) return;
+            if (chosenPlace == null) return;          
             //Timer att köra programmet
-            Stopwatch stopWatch = new Stopwatch();
+            Stopwatch stopWatch = new();
             stopWatch.Start();
             dateAndRisk = GetAvg();
-            //Print();
+            Print();
             stopWatch.Stop();
 
             TimeSpan ts = stopWatch.Elapsed;
@@ -35,8 +33,8 @@ namespace WeatherData.Models
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                                                 ts.Hours, ts.Minutes, ts.Seconds,
                                                 ts.Milliseconds / 10);
-            //Console.SetCursorPosition(70, 0);
-            //Console.WriteLine("RunTime " + elapsedTime);
+            Console.SetCursorPosition(70, 0);
+            Console.WriteLine("RunTime " + elapsedTime);
 
         }
 
@@ -44,7 +42,7 @@ namespace WeatherData.Models
         {
             List<Data> correctDateandPlace = new();
             List<double> dateAndAvg = new();
-            Dictionary<string, string> dateAndAvgTempAndHum = new();
+            Dictionary<string, string> dateAndMoldRisk = new();
             string noRisk = "Ingen mögelrisk";
             string low = "Låg mögelrisk";
             string middle = "Medelhög mögelrisk";
@@ -62,68 +60,39 @@ namespace WeatherData.Models
 
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
                 int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
-                if (avgTemp < 10 && avgHum < 60)
+                if(avgTemp < 0 || avgTemp > 50 || avgHum < 65)
                 {
-                    dateAndAvgTempAndHum.Add(day.Key, low);
-
+                    dateAndMoldRisk.Add(day.Key, noRisk);
                 }
-                else if (avgTemp < 10 && avgHum > 60)
+                else if (avgTemp > 0 && avgHum > 65 && avgHum < 81)
                 {
-                    dateAndAvgTempAndHum.Add(day.Key, middle);
-
+                    dateAndMoldRisk.Add(day.Key, low);
                 }
-                else if (avgTemp < 10 && avgHum > 90)
+                else if (avgTemp > 2 && avgHum > 80 && avgHum < 86)
                 {
-                    dateAndAvgTempAndHum.Add(day.Key, high);
-
+                    dateAndMoldRisk.Add(day.Key, middle);
                 }
-                else
+                else if (avgTemp > 5 && avgHum > 85)
                 {
-                    dateAndAvgTempAndHum.Add(day.Key, noRisk);
+                    dateAndMoldRisk.Add(day.Key, high);
                 }
+            }           
+            return dateAndMoldRisk;
+        }
 
-
-            }
-            if (dateAndAvgTempAndHum.Any())
+        public void Print()
+        {
+            if (dateAndRisk.Any())
             {
-
-                foreach (var item in dateAndAvgTempAndHum)
+                foreach (var item in dateAndRisk)
                 {
                     Console.WriteLine(item.Key + ": " + item.Value);
-
                 }
             }
             else
             {
                 Console.WriteLine("Det fanns ingen risk för mögel under perioden");
             }
-            return dateAndAvgTempAndHum;
         }
-
-        //public void GetAvgMoldRisk()
-        //{
-        //    foreach (var day in dateAndAvg)
-        //    {
-        //        if(day.Value)
-        //    }
-        //}
-
-        //public void Print()
-        //{
-        //    Console.ForegroundColor = ConsoleColor.Red;
-        //    Console.WriteLine();
-        //    Console.WriteLine(chosenCategory == "temp" ? "Varmast till kallast" : "Torrast till fuktigast");
-        //    Console.ResetColor();
-        //    foreach (var item in chosenCategory == "temp" ? dateAndAvg.OrderByDescending(t => t.Value) : dateAndAvg.OrderBy(t => t.Value))
-        //    {
-        //        Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 1));
-        //    }
-
-        //    //Sorterar endast på datum
-        //    //foreach (var item in dateAndAvg)
-        //    //{
-        //    //    Console.WriteLine(item.Key + " medelvärde: " + Math.Round(item.Value, 2));
-        //    //}
-        //}
     }
 }

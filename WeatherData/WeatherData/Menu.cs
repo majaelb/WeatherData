@@ -10,13 +10,12 @@ namespace WeatherData
 {
     internal class Menu
     {
-        //private static List<Data> weatherList = Data.CreateOneWeatherDataList();
-
         public static void Run()
         {
             SortedWeather weatherManager = new();
             ChosenDateWeather chosenDate = new();
             SeasonStart seasonStart = new();
+            SortedMoldRisk sortedMoldRisk = new();
             bool runProgram = true;
             while (runProgram)
             {
@@ -28,7 +27,7 @@ namespace WeatherData
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
                         Console.Clear();
-                        Helper.ActiveChoice("Medeltemperatur");
+                        Helper.ActiveChoice("Medelvärden med datumsök");
                         chosenDate.Run();
                         Console.ReadKey();
                         Console.Clear();
@@ -36,7 +35,7 @@ namespace WeatherData
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
                         Console.Clear();
-                        Helper.ActiveChoice("Sortering");
+                        Helper.ActiveChoice("Sortering av medelvärden");
                         weatherManager.Run();
                         Console.ReadKey();
                         Console.Clear();
@@ -44,13 +43,21 @@ namespace WeatherData
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
                         Console.Clear();
-                        Helper.ActiveChoice("Säsongstart");
-                        seasonStart.Run();
+                        Helper.ActiveChoice("Sortering av mögelrisk");
+                        sortedMoldRisk.Run();
                         Console.ReadKey();
                         Console.Clear();
                         break;
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
+                        Console.Clear();
+                        Helper.ActiveChoice("Meterologisk säsongsstart");
+                        seasonStart.Run();
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;                
+                    case ConsoleKey.D5:
+                    case ConsoleKey.NumPad5:
                         runProgram = false;
                         break;
                 }
@@ -58,7 +65,7 @@ namespace WeatherData
         }
         private static void PrintChoices()
         {
-            List<string> menuOptions = new List<string> { "Medeltemperatur", "Sortering","Säsongstart", "Avsluta" };
+            List<string> menuOptions = new List<string> { "Medelvärden med datumsök", "Sortering av medelvärden", "Sortering av mögelrisk", "Meterologisk säsongsstart", "Avsluta" };
             PrintList(menuOptions);
         }
 

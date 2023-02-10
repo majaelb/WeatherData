@@ -53,28 +53,7 @@ namespace WeatherData.Logic
                     return null;
                 }
             }
-        }
-        internal static string GetMonth(string instruction, string pattern)
-        {
-            while (true)
-            {
-                string yearMonth = Validator.RegexCheck(instruction, pattern);
-                if (yearMonth == null) return null;
-                foreach (var d in Data.WeatherData)
-                {
-                    if (d.Year + d.Month == yearMonth)
-                    {
-                        return yearMonth;
-                    }
-                }
-                WrongInput("Månaden finns tyvärr inte i statistiken");
-                if (Validator.ExitChoice())
-                {
-                    return null;
-                }
-            }
-        }
-
+        }        
         internal static string? GetString(string instruction)
         {
             while (true)
@@ -136,50 +115,8 @@ namespace WeatherData.Logic
                     }
                 }
             }
-        }
-
-        internal static double GetDouble(string instruction)
-        {
-            while (true)
-            {
-                Console.Write(instruction);
-                string? input = Console.ReadLine();
-                if (input != null && double.TryParse(input, out double number))
-                {
-                    return number;
-                }
-                else
-                {
-                    Validator.WrongInput("Felaktig inmatning");
-                    if (Validator.ExitChoice())
-                    {
-                        return -1;
-                    }
-                }
-            }
-        }
-
-        internal static int GetIntList(IEnumerable<int> validationList, string instruction)
-        {
-            while (true)
-            {
-                int input = GetInt(instruction);
-                if (input == -1) return -1;
-                if (validationList.Contains(input))
-                {
-                    return input;
-                }
-                else
-                {
-                    Validator.WrongInput("Felaktig inmatning");
-                    if (Validator.ExitChoice())
-                    {
-                        return -1;
-                    }
-                }
-            }
-        }
-
+        }      
+        
         internal static void WrongInput(string instruction) //Text som visas vid felinmatning
         {
             Console.WriteLine(instruction + ", försök igen eller tryck <TAB> för att gå tillbaka");
