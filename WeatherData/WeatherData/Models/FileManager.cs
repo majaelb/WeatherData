@@ -14,15 +14,8 @@ namespace WeatherData.Models
         private static double avgTemp;
         private static int avgHum;
 
-        public static void WriteToFile()
-        {
-            string path = "../../../Files/";
-
-            
-
-            //File.WriteAllLines(path + "statistics.txt", );
-
-        }
+        private static string path = "../../../Files/";
+        private static string filename = "statistics.txt";
 
         public static void AvgMonth()
         {
@@ -36,6 +29,16 @@ namespace WeatherData.Models
             string path = "../../../Files/";
             string filename = "statistics.txt";
 
+            if (chosenPlace == "inne")
+            {
+                avgTempMonth.Add("Medeltemperatur inomhus");
+                avgHumMonth.Add("Medelluftfuktighet inomhus");
+            }
+            else if (chosenPlace == "ute")
+            {
+                avgTempMonth.Add("Medeltemperatur utomhus");
+                avgHumMonth.Add("Medelluftfuktighet utomhus");
+            }
             foreach (var month in groupByMonth)
             {
                 correctDateandPlace = weatherList
@@ -43,68 +46,22 @@ namespace WeatherData.Models
                                      .Equals(month.Key) && d.InOrOut == chosenPlace)
                                      .ToList();
 
-                string avgTemp = correctDateandPlace.Average(t => t.Temp).ToString();
-                string avgHum = correctDateandPlace.Average(t => t.Humidity).ToString();
+                string avgTemp = Math.Round(correctDateandPlace.Average(t => t.Temp), 1).ToString();
+                string avgHum = Math.Round(correctDateandPlace.Average(t => t.Humidity)).ToString();
 
                 avgTempMonth.Add(month.Key + " " + avgTemp);
-                File.WriteAllLines(path + filename, avgTempMonth);
                 avgHumMonth.Add(month.Key + " " + avgHum);
-                File.AppendAllLines(path + filename, avgHumMonth);
-
-              
-
-
-                //if (chosenCategory == "temp") dateAndAvg.Add(month.Key, avgTemp);
-                //else if (chosenCategory == "hum") dateAndAvg.Add(month.Key, avgHum);
             }
-            //foreach (var month in avgTempMonth)
-            //{
+            if (!File.Exists(path + filename))
+            {
+                File.WriteAllLines(path + filename, avgTempMonth);
 
-            //    Console.WriteLine($"Medeltemperaturen för {month.Key} : {Math.Round(month.Value, 1)} grader ");
-
-            //}
-            //foreach (var month in avgHumMonth)
-            //{
-
-            //    Console.WriteLine($"Medelluftfuktigheten för {month.Key} :{month.Value}%");
-
-            //}
-
+            }
+            else 
+            {
+                File.AppendAllLines(path + filename, avgTempMonth);
+            }
+            File.AppendAllLines(path + filename, avgHumMonth);
         }
-
-
-
-
-        //public static void AvgMonth()
-        //{
-        //    string chosenPlace = InputManager.GetPlace();
-        //    string chosenCategory = InputManager.ChooseCategory();
-        //    List<Data> correctDateandPlace = new();
-        //    Dictionary<string, double> dateAndAvg = new();
-        //    var groupByDay = weatherList
-        //                    .GroupBy(x => x.Year + x.Month);
-
-        //    foreach (var day in groupByDay)
-        //    {
-        //        correctDateandPlace = weatherList
-        //                             .Where(d => (d.Year + d.Month)
-        //                             .Equals(day.Key) && d.InOrOut == chosenPlace)
-        //                             .ToList();
-
-        //        double avgTemp = correctDateandPlace.Average(t => t.Temp);
-        //        int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
-        //        if (chosenCategory == "temp") dateAndAvg.Add(day.Key, avgTemp);
-        //        else if (chosenCategory == "hum") dateAndAvg.Add(day.Key, avgHum);
-        //    }
-        //    foreach (var month in dateAndAvg)
-        //    {
-        //        Console.WriteLine("Medelvärde för " + month.Key + ": " + month.Value);
-        //        //foreach(var day in month.Key)
-        //        //if (month.Key.Count() > 30)
-        //        //{
-        //        //    Console.WriteLine("Denna månad är inte mätningarna fullständiga. Endast data från " + month.Key.Count());
-        //        //}
-        //    }
-        //}
     }
 }
