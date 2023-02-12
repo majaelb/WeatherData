@@ -29,7 +29,8 @@ namespace WeatherData.Models
             Print();
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
-            Helper.TimeCount(ts);            
+            Helper.TimeCount(ts);
+            Console.ReadKey();
         }
    
         public Dictionary<string, double> GetAvg()

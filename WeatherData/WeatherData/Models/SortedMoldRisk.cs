@@ -27,6 +27,7 @@ namespace WeatherData.Models
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Helper.TimeCount(ts);
+            Console.ReadKey();
         }
 
         public Dictionary<string, string> GetAvg()
@@ -34,7 +35,7 @@ namespace WeatherData.Models
             List<Data> correctDateandPlace = new();
             List<double> dateAndAvg = new();
             Dictionary<string, string> dateAndMoldRisk = new();
-            string noRisk = "Ingen mögelrisk";
+            //string noRisk = "Ingen mögelrisk";
             string low = "Låg mögelrisk";
             string middle = "Medelhög mögelrisk";
             string high = "Hög mögelrisk";
@@ -51,11 +52,11 @@ namespace WeatherData.Models
 
                 double avgTemp = correctDateandPlace.Average(t => t.Temp);
                 int avgHum = (int)correctDateandPlace.Average(t => t.Humidity);
-                if (avgTemp < 0 || avgTemp > 50 || avgHum < 65)
-                {
-                    dateAndMoldRisk.Add(day.Key, noRisk);
-                }
-                else if (avgTemp > 0 && avgHum > 65 && avgHum < 81)
+                //if (avgTemp < 0 || avgTemp > 50 || avgHum < 65)
+                //{
+                //    dateAndMoldRisk.Add(day.Key, noRisk);
+                //}
+                if (avgTemp > 0 && avgHum > 65 && avgHum < 81)
                 {
                     dateAndMoldRisk.Add(day.Key, low);
                 }

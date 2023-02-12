@@ -17,12 +17,12 @@ namespace WeatherData.Models
         private static Dictionary<string, double> ? autumnStart;
         private static Dictionary<string, double> ? winterStart;
 
-        private static string path = "../../../Files/";
-        private static string filename = "statistics.txt";
+        private static readonly string path = "../../../Files/";
+        private static readonly string filename = "statistics.txt";
 
         public void Run()
         {
-            Delegates.MyDelegate del = Delegates.SaveToFile;
+            //Delegates.MyDelegate del = Delegates.SaveToFile;
             int maxTempAutumn = 10;
             //ändrade temperaturen till 1 för att få ut data. Vintern visades inte p.g.a 0 inte sker 5 dagar i rad.
             //borde gå att ändra vid getSeasonstart
@@ -37,6 +37,7 @@ namespace WeatherData.Models
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             Helper.TimeCount(ts);
+            Console.ReadKey();
         }
         public Dictionary<string, double> GetAvg()
         {
@@ -101,8 +102,10 @@ namespace WeatherData.Models
                     Console.WriteLine($"{s.Key} med {Math.Round(s.Value,1)} grader");
                 }
             }
-        }  
-        public void WriteToFile(Delegates.MyDelegate del)
+        } 
+        
+
+        public static void WriteToFile(Delegates.MyDelegate del)
         {
             
             string autumn = "";

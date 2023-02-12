@@ -19,6 +19,7 @@ namespace WeatherData
             bool runProgram = true;
             while (runProgram)
             {
+                Console.Clear();
                 PrintChoices();
                 var key = Console.ReadKey(true).Key;
 
@@ -28,33 +29,25 @@ namespace WeatherData
                     case ConsoleKey.NumPad1:
                         Console.Clear();
                         Helper.ActiveChoice("Medelvärden med datumsök");
-                        chosenDate.Run();
-                        Console.ReadKey();
-                        Console.Clear();
+                        chosenDate.Run();                       
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
                         Console.Clear();
                         Helper.ActiveChoice("Sortering av medelvärden");
                         weatherManager.Run();
-                        Console.ReadKey();
-                        Console.Clear();
                         break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
                         Console.Clear();
                         Helper.ActiveChoice("Sortering av mögelrisk");
                         sortedMoldRisk.Run();
-                        Console.ReadKey();
-                        Console.Clear();
                         break;
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
                         Console.Clear();
                         Helper.ActiveChoice("Meterologisk säsongsstart");
                         seasonStart.Run();
-                        Console.ReadKey();
-                        Console.Clear();
                         break;                
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:

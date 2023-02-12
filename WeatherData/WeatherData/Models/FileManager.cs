@@ -11,14 +11,10 @@ namespace WeatherData.Models
     internal class FileManager
     {
         private static readonly List<Data> weatherList = Data.CreateOneWeatherDataList();
-        private static double avgTemp;
-        private static int avgHum;
+        private static readonly string path = "../../../Files/";
+        private static readonly string filename = "statistics.txt";
 
-        private static string path = "../../../Files/";
-        private static string filename = "statistics.txt";
-
-
-        public void WriteMoldRiskToFile()
+        public static void WriteMoldRiskToFile()
         {           
             string chosenPlace = InputManager.GetPlace();
             List<Data> correctDateandPlace = new();
