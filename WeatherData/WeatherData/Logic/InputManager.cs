@@ -31,8 +31,8 @@ namespace WeatherData.Logic
         public static string GetCategory()
         {
             int lower = (int)Enums.Category.Temp;
-            int middle = (int)Enums.Category.Humidity;
-            int upper = (int)Enums.Category.Mold;
+            int upper = (int)Enums.Category.Humidity;
+            //int upper = (int)Enums.Category.Mold;
 
             int category = Validator.GetIntInRange("Vill du se data för [1] = temperatur eller [2] = luftfuktighet: ", lower, upper);
             if (category == -1) return null;
@@ -41,14 +41,14 @@ namespace WeatherData.Logic
             {
                 return "temp";
             }
-            else if (category == middle)
+            else if (category == upper)
             {
                 return "hum";
             }
-            else if (category == upper)
-            {
-                return "mold";
-            }
+            //else if (category == upper)
+            //{
+            //    return "mold";
+            //}
             return null;
 
         }
